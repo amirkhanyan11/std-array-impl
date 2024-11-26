@@ -75,10 +75,29 @@ typename array<T, N>::iterator array<T, N>::begin()
     return iterator(this->arr);
 }
 
+
+template <typename T, size_t N>
+typename array<T, N>::const_reverse_iterator array<T, N>::rbegin() const
+{
+    return const_reverse_iterator((const_cast<array<T, N>*>(this))->arr + N - 1);
+}
+
+template <typename T, size_t N>
+typename array<T, N>::reverse_iterator array<T, N>::rbegin()
+{
+    return reverse_iterator(this->arr + N - 1);
+}
+
 template <typename T, size_t N>
 typename array<T, N>::const_iterator array<T, N>::end() const
 {
     return iterator((const_cast<array<T, N>*>(this))->arr + N);
+}
+
+template <typename T, size_t N>
+typename array<T, N>::const_reverse_iterator array<T, N>::rend() const
+{
+    return reverse_iterator((const_cast<array<T, N>*>(this))->arr - 1);
 }
 
 #endif // __ARRAY_TPP__

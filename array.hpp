@@ -96,6 +96,61 @@ public:
     };
 
 
+    class const_reverse_iterator : public const_iterator
+    {
+    public:
+        friend array<value_type, N>;
+
+    protected:
+        explicit const_reverse_iterator(pointer ptr);
+
+    public:
+        const_reverse_iterator();
+        const_reverse_iterator(const const_reverse_iterator& rhv) = default;
+        const_reverse_iterator(const_reverse_iterator&& rhv) = default;
+
+    public:
+
+        const_reverse_iterator& operator++();
+        const_reverse_iterator  operator++(int);
+        const_reverse_iterator& operator--();
+        const_reverse_iterator  operator--(int);
+        const_reverse_iterator& operator+=(size_type);
+        const_reverse_iterator& operator-=(size_type);
+        const_reverse_iterator  operator+(size_type) const;
+        const_reverse_iterator  operator-(size_type) const;
+        difference_type         operator-(const const_reverse_iterator& rhv) const;
+
+    };
+
+
+    class reverse_iterator : public const_reverse_iterator
+    {
+    public:
+
+        friend array<T, N>;
+
+    protected:
+        explicit reverse_iterator(pointer);
+
+    public:
+
+        reverse_iterator();
+        reverse_iterator(const reverse_iterator& rhv) = default;
+        reverse_iterator(reverse_iterator&& rhv) = default;
+
+    public:
+
+        const_reference operator*() const;
+        const_pointer   operator->() const;
+        const_reference operator[](size_type idx) const;
+
+        reference operator*();
+        pointer   operator->();
+        reference operator[](size_type idx);
+    };
+
+
 public:
 
     array() = default;
@@ -121,10 +176,13 @@ public:
 
 public:
 
-    const_iterator  begin() const;
-    iterator        begin();
+    const_iterator          begin() const;
+    iterator                begin();
+    const_reverse_iterator  rbegin() const;
+    reverse_iterator        rbegin();
 
-    const_iterator  end() const;
+    const_iterator          end() const;
+    const_reverse_iterator  rend() const;
 
 
 

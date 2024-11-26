@@ -7,7 +7,6 @@
 
 #include "array.hpp"
 
-
 template <typename T, size_t N>
 array<T, N>::const_iterator::const_iterator(pointer p) : ptr{p} {}
 
