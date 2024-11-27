@@ -24,8 +24,18 @@ public:
     class const_iterator
     {
     public:
-        friend array<value_type, N>;
 
+        friend array<T, N>;
+
+        using iterator_category = std::contiguous_iterator_tag;
+
+        using value_type        = T;
+        using difference_type   = std::ptrdiff_t;
+        using reference         = value_type&;
+        using const_reference   = const value_type&;
+        using pointer           = value_type*;
+        using const_pointer     = const value_type*;
+        
     protected:
         explicit const_iterator(pointer ptr);
 
@@ -70,6 +80,7 @@ public:
     public:
 
         friend array<T, N>;
+        using iterator_category = std::contiguous_iterator_tag;
 
     protected:
         explicit iterator(pointer);
@@ -160,18 +171,18 @@ public:
 
 public:
 
-    array& operator=(const array& rhv) = default;
-    array& operator=(array&& rhv) = default;
+    array&          operator=(const array& rhv) = default;
+    array&          operator=(array&& rhv) = default;
 
-    bool operator==(const array& rhv) const;
+    bool            operator==(const array& rhv) const;
 
-    const_reference operator[](size_type idx) const;
-    reference operator[](size_type idx);
+    const_reference operator[](size_type idx) const noexcept;
+    reference       operator[](size_type idx) noexcept;
 
 public:
 
-    const_reference at(size_type idx) const noexcept; 
-    reference at(size_type idx) noexcept; 
+    const_reference at(size_type idx) const; 
+    reference       at(size_type idx); 
     
 
 public:
@@ -182,6 +193,7 @@ public:
     reverse_iterator        rbegin();
 
     const_iterator          end() const;
+    iterator                end();
     const_reverse_iterator  rend() const;
 
 

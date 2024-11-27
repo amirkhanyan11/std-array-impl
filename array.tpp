@@ -28,14 +28,14 @@ bool array<T, N>::operator==(const array& rhv) const
 
 
 template <typename T, size_t N>
-typename array<T, N>::const_reference array<T, N>::operator[](size_type idx) const
+typename array<T, N>::const_reference array<T, N>::operator[](size_type idx) const noexcept
 {
     return this->arr[idx];
 }
 
 
 template <typename T, size_t N>
-typename array<T, N>::reference array<T, N>::operator[](size_type idx)
+typename array<T, N>::reference array<T, N>::operator[](size_type idx) noexcept
 {
     return const_cast<reference> (
 
@@ -44,7 +44,7 @@ typename array<T, N>::reference array<T, N>::operator[](size_type idx)
 }
 
 template <typename T, size_t N>
-typename array<T, N>::const_reference array<T, N>::at(size_type idx) const noexcept
+typename array<T, N>::const_reference array<T, N>::at(size_type idx) const
 {
     if (idx >= N)
         throw std::out_of_range();
@@ -54,7 +54,7 @@ typename array<T, N>::const_reference array<T, N>::at(size_type idx) const noexc
 
 
 template <typename T, size_t N>
-typename array<T, N>::reference array<T, N>::at(size_type idx) noexcept
+typename array<T, N>::reference array<T, N>::at(size_type idx)
 {
     return const_cast<reference> (
 
@@ -90,6 +90,12 @@ typename array<T, N>::reverse_iterator array<T, N>::rbegin()
 
 template <typename T, size_t N>
 typename array<T, N>::const_iterator array<T, N>::end() const
+{
+    return const_iterator((const_cast<array<T, N>*>(this))->arr + N);
+}
+
+template <typename T, size_t N>
+typename array<T, N>::iterator array<T, N>::end()
 {
     return iterator((const_cast<array<T, N>*>(this))->arr + N);
 }
